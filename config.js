@@ -14,6 +14,7 @@ window.SITE = {
     gr86tl: { standard: "" },               // $649
     p987sw: { standard: "", premium: "" }   // $899 / $999
   },
+  orderApi: "https://orders.oliandcece.com/api/order", // order service on VPS; empty = hide order form
   telegramBot: "TachiClubBot",                    // Telegram bot username (no @); empty = hide chat button
   depositUSD: 200,                     // PLACEHOLDER refundable deposit
   leadTime: "3–5 weeks (estimate)",
