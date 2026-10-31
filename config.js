@@ -6,22 +6,23 @@ window.SITE = {
   formEndpoint: "",                    // FormSubmit/Formspree URL; empty = mailto fallback
   stripeCheckoutUrl: "",               // TODO: Stripe Payment Link (deposit)
   stripeMode: "test",                  // TEST MODE ONLY until pricing is final
-  stripePublishableKey: "",            // pk_test_... (publishable only; NEVER sk_/rk_ here)
+  stripePublishableKey: "pk_test_51USZX8PDlj1T6aYNX96LQLhuZYCBECDTOueMXt1ASebihbgpHuO0mdtikaXKD9RrHcvhPHb2i4b22Ly6NRBW4dEz00EuJfoI1O",            // pk_test_... (publishable only; NEVER sk_/rk_ here)
   paymentLinks: {                      // Stripe TEST Payment Links per product/option; empty = "coming soon"
-    gt86: { standard: "", premium: "" },   // $899 / $1049
-    ek:   { standard: "", premium: "" },   // $799 / $999
-    "987":{ standard: "", premium: "" },   // $1299 / $1549
+    gt86: { standard: "https://buy.stripe.com/test_00w9AV8Tvf5bfDfgC14ko00", premium: "https://buy.stripe.com/test_3cI6oJ6LncX31Mp3Pf4ko01" },   // $899 / $1049
+    ek:   { standard: "https://buy.stripe.com/test_bJedRb7Pr9KRfDf2Lb4ko02", premium: "https://buy.stripe.com/test_3cI7sNfhT1elfDf3Pf4ko03" },   // $799 / $999
+    "987":{ standard: "https://buy.stripe.com/test_cNidRbd9L7CJbmZ5Xn4ko04", premium: "https://buy.stripe.com/test_bJe28t5Hj0ah76J85v4ko05" },   // $1299 / $1549
     gr86tl: { standard: "" },               // $649
     p987sw: { standard: "", premium: "" },  // $1499 / $2099
     c9ymc: { standard: "" },                // $339
     p718mc: { standard: "" },               // $299
-    p718dl: { standard: "" }                // $799
+    p718dl: { standard: "" },               // $799
+    sbshb: { standard: "" }                 // $49
   },
   orderApi: "https://orders.oliandcece.com/api/order", // order service on VPS; empty = hide order form
   telegramBot: "TachiClubBot",                    // Telegram bot username (no @); empty = hide chat button
   depositUSD: 200,                     // default deposit (clusters); see POL in app.js for policy
   leadTime: "3–5 weeks (estimate)",
-  gallery: {"gt86": ["gt86-223835832", "gt86-223835833", "gt86-223835834", "gt86-224046690", "gt86-224046691", "gt86-224046692", "brz-224046741", "brz-224046742", "brz-224046743"], "ek": ["ek3-224729425", "ek3-224729426", "ek3-224729428", "ek3-224729429", "ek3-224729430", "ek3-224729431", "ek3-224785198", "ek3-224785199", "ek3-224785200", "ek3-224785201", "ek3-224785202", "ek3-224785203"], "987": ["987-223565096", "987-223565097", "987-223565098", "987-223565099", "987-223565100", "987-224046840", "987-224046842", "987-224046844", "981-223824245", "981-223824272", "981-223824273", "981-223824274", "981-223824275", "981-223824276", "981-224046831", "981-224046832", "981-224046833", "718-224046792"], "991": ["991-223632459", "991-223632460", "991-223632461", "991-223632462", "991-223632463", "991-223632466", "991-224046775", "991-224046776", "991-224046777", "991-224046778"], "gr86tl": ["gr86tl-1", "gr86tl-2", "gr86tl-3", "gr86tl-4"], "p987sw": ["p987sw-1", "p987sw-2", "p987sw-3", "p987sw-4"], "c9ymc": ["c9ymc-1", "c9ymc-2", "c9ymc-3", "c9ymc-4"], "p718mc": ["p718mc-1", "p718mc-2", "p718mc-3", "p718mc-4"], "p718dl": ["p718dl-1", "p718dl-2", "p718dl-3", "p718dl-4"], "pc": ["panamera-cayenne-223599723", "panamera-cayenne-223599724", "panamera-cayenne-223599725", "panamera-cayenne-223599726", "panamera-cayenne-223599727", "panamera-cayenne-223599728", "panamera-cayenne-223599729", "panamera-cayenne-223599730", "panamera-cayenne-223599732", "panamera-cayenne-223599733", "panamera-cayenne-223599734", "panamera-cayenne-223601049", "panamera-cayenne-223601051"]},
+  gallery: {"gt86": ["gt86-223835832", "gt86-223835833", "gt86-223835834", "gt86-224046690", "gt86-224046691", "gt86-224046692", "brz-224046741", "brz-224046742", "brz-224046743"], "ek": ["ek3-224729425", "ek3-224729426", "ek3-224729428", "ek3-224729429", "ek3-224729430", "ek3-224729431", "ek3-224785198", "ek3-224785199", "ek3-224785200", "ek3-224785201", "ek3-224785202", "ek3-224785203"], "987": ["987-223565096", "987-223565097", "987-223565098", "987-223565099", "987-223565100", "987-224046840", "987-224046842", "987-224046844", "981-223824245", "981-223824272", "981-223824273", "981-223824274", "981-223824275", "981-223824276", "981-224046831", "981-224046832", "981-224046833", "718-224046792"], "991": ["991-223632459", "991-223632460", "991-223632461", "991-223632462", "991-223632463", "991-223632466", "991-224046775", "991-224046776", "991-224046777", "991-224046778"], "gr86tl": ["gr86tl-1", "gr86tl-2", "gr86tl-3", "gr86tl-4"], "p987sw": ["p987sw-1", "p987sw-2", "p987sw-3", "p987sw-4"], "c9ymc": ["c9ymc-1", "c9ymc-2", "c9ymc-3", "c9ymc-4"], "p718mc": ["p718mc-1", "p718mc-2", "p718mc-3", "p718mc-4"], "p718dl": ["p718dl-1", "p718dl-2", "p718dl-3", "p718dl-4"], "sbshb": ["sbshb-1", "sbshb-2", "sbshb-3", "sbshb-4"], "pc": ["panamera-cayenne-223599723", "panamera-cayenne-223599724", "panamera-cayenne-223599725", "panamera-cayenne-223599726", "panamera-cayenne-223599727", "panamera-cayenne-223599728", "panamera-cayenne-223599729", "panamera-cayenne-223599730", "panamera-cayenne-223599732", "panamera-cayenne-223599733", "panamera-cayenne-223599734", "panamera-cayenne-223601049", "panamera-cayenne-223601051"]},
   chassis: ["ZN6","ZC6","EK9","EK4","EK3","EJ8","987","981","991","971","9Y0","AP1","AP2","ZN8","ZD8","997"],
   products: [
     { id:"gt86", code:"ZN6 / ZC6", name:"GT86 / BRZ / FR-S Digital Cluster", make:"Toyota / Subaru / Scion",
@@ -66,7 +67,12 @@ window.SITE = {
       years:[2017,2022], price:799, plug:"Bolts to the rear bumper, pro install advised", gal:"p718dl", hero:"p718dl-1",
       fit:"718 Cayman / Boxster (982), 2017–2022 with the standard center-exit exhaust. Not for GT4 / Spyder / GT4 RS rear bumpers. We confirm your car from a rear bumper photo before ordering.",
       specs:["Carbon fiber rear bumper diffuser with center exhaust cut-out (per supplier)","Made to order by our partner factory — est. 4–6 weeks to you","Professional install recommended","Large item: ships to our LA warehouse for inspection before it goes to you","Supplier photos shown; finish and weave may vary slightly"],
-      makes:["Porsche"] }
+      makes:["Porsche"] },
+    { id:"sbshb", acc:true, deposit:17, code:"WRX / STI / 86", name:"Front + Rear Shifter Bushing Kit (Polyurethane)", make:"Subaru / Toyota / Scion",
+      years:[2002,2021], price:49, plug:"Bolt-in, replaces the factory rubber shifter bushings", gal:"sbshb", hero:"sbshb-1",
+      fit:"Manual-transmission Subaru and Toyota 86 platform shifters: Subaru BRZ, Scion FR-S and Toyota GT86 / 86 (2013–2021, 6-speed manual), WRX STI 6-speed (2004–2021) and WRX (2002–2014). Not for automatic/CVT cars or the 2022+ WRX / GR86 / BRZ. Fitment is per the supplier; tell us your car and gearbox and we confirm before ordering.",
+      specs:["Front shifter stabilizer bushings + rear shifter bushing with metal sleeve and bolts (per supplier photos)","Red polyurethane — firmer than the factory rubber for a tighter, less sloppy shift; may pass a little more vibration","Generic aftermarket part, not a Kartboy / Whiteline / Perrin product","Ships directly from the supplier to your address (not via our LA warehouse) — est. 2–3 weeks","Supplier photos shown; supplier stock is limited, we confirm availability before charging the balance"],
+      makes:["Subaru","Toyota","Scion"] }
   ],
   comingSoon: [
     {code:"991", name:"Porsche 911 (991)", img:"991-224046776", note:"Two 7.1\" + two 4\" screens"},
