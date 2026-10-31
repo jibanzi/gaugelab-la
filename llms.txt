@@ -18,7 +18,7 @@
 
 ## Policies
 - Lead time: 3–5 weeks (estimate); large items such as the 718 rear diffuser 4–6 weeks.
-- Deposit & cancellation policy (deposit orders): Custom items are made/sourced to order. Your deposit is NON-REFUNDABLE once your item has been produced or shipped. You may cancel for a full deposit refund within 24 hours of placing your order. Cancellations after 24 hours (before production/shipping) incur a cancellation fee of 50% of the deposit; the remaining 50% is refunded. Exception: if your item arrives damaged, wrong or missing parts, email support@oliandcece.com with photos within 7 days of delivery for a replacement or refund. Approved refunds go back to the original payment method in 5–10 business days.
+- Deposit & cancellation policy (deposit orders): Custom items are made/sourced to order. After your deposit is paid we email you an order summary (vehicle, VIN, options, lead time) with a Confirm production start link; we do not order parts or start production until you confirm. Cancel before you confirm production start: full refund. Cancel after production/purchasing has started: we refund your deposit minus the actual costs already incurred for your order (materials, machining, freight), with an itemized cost breakdown; the deduction never exceeds your deposit. Once shipped: no returns, refunds or exchanges. Exception: if your item arrives damaged, wrong or missing parts, email support@oliandcece.com with photos within 7 days of delivery; we send a replacement first, or refund you if a replacement is not possible. Approved refunds go back to the original payment method in 5–10 business days.
 - Digital clusters: deposit pre-order only for now.
 - Fitment is confirmed from VIN/photos before ordering or building.
 

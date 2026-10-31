@@ -142,7 +142,7 @@ for p in HERO + ACC:
 
 # ---- Policy pages (2026-11-01, Cheung decisions). Support email per Cheung; no phone/extra address invented.
 SUP = "support@oliandcece.com"
-DMG = f"If your item arrives damaged, is the wrong item, or is missing parts, email {SUP} with your order number and photos within 7 days of delivery. We will send a replacement or refund you. This is the only exception to the no-returns rule for shipped orders."
+DMG = f"If your item arrives damaged, is the wrong item, or is missing parts, email {SUP} with your order number and photos within 7 days of delivery. We send a replacement first, or refund you if a replacement is not possible. This is the only exception to the no-returns rule for shipped orders."
 POLICIES = {
  "shipping-policy": ("Shipping Policy", "Tachi Club ships only to street addresses in the 50 US states and Washington, D.C. Shipping times, tracking, lost packages and address rules.", [
   ("Where do you ship?", "We ship only to street addresses in the 50 US states and Washington, D.C. (including Alaska and Hawaii)."),
@@ -150,12 +150,14 @@ POLICIES = {
   ("How much is shipping?", "US shipping is calculated at checkout based on your ZIP and package size; free local pickup at our Los Angeles warehouse. Items that ship from our Los Angeles warehouse (digital clusters and made-to-order parts): enter your ZIP on the order form and we show the shipping amount as its own line before you pay; it is based on the actual packed size and weight and a live carrier rate from Los Angeles. Deposit orders pay shipping together with the balance; pay-in-full orders pay it at checkout. Choose \"Local pickup at our LA warehouse\" for $0 shipping; pickup details are emailed after you order. In-stock items that ship directly from our supplier (marked \"In stock · pay in full\") include US shipping in the price."),
   ("When will my order ship? (in-stock items)", "In-stock accessories (marked \"In stock · pay in full\") ship directly from our supplier, usually within 2–5 business days after your order. Transit is usually about 7–15 business days."),
   ("When will my order ship? (custom items)", "Custom / made-to-order items ship after production, per the lead time shown on each product page: digital clusters are estimated at 3–5 weeks, and other custom parts at about 2–6 weeks (large items such as the 718 rear diffuser 4–6 weeks). We email you if the estimate changes."),
+  ("Signature confirmation", "Orders with a goods value of $500 or more ship with signature confirmation required on delivery (adult signature where the carrier offers it). Please make sure someone can sign for the package."),
   ("Tracking and delivery confirmation", "When your order ships we email you the carrier and tracking number. When the carrier shows it delivered, we email you a delivery confirmation."),
   ("Late or lost packages", f"If tracking has not updated or your package has not arrived, email {SUP} with your order number and we will open a trace with the carrier. If there is still no delivery scan 30 days after shipment, we treat the package as lost and send a replacement or a refund."),
   ("Wrong address", f"Please check your address at checkout; you are responsible for a correct, complete address. Before shipment, email {SUP} and we will try to update it. After shipment we cannot change it. If a package is returned or lost because of an incorrect address, reshipping may cost extra."),
   ("Damaged, wrong or missing items", DMG),
   ("Contact", f"Email {SUP} with your order number.")]),
- "returns-refund-policy": ("Returns & Refund Policy", "Cancellation and refund rules for Tachi Club deposit pre-orders, pay-in-full orders and in-stock items; 7-day damaged/wrong item cover.", [
+ "returns-refund-policy": ("Returns & Refund Policy", "Cancellation and refund rules for Tachi Club custom orders (full refund before you confirm production start; after that, refund minus actual costs incurred, capped at the deposit) and in-stock items (full refund before shipment); 7-day damaged/wrong item cover.", [
+  ("Production-start confirmation (custom items)", "After you pay for a custom item, we email you a summary of your order (vehicle, VIN, options, lead time) with a Confirm production start link. We do not order parts or start production until you click it. The time, IP address and policy version of your confirmation are recorded with your order."),
   ("Deposit pre-orders (custom items)", POL),
   ("Paid-in-full custom items", POLF),
   ("In-stock items (paid in full, ship direct from our supplier)", POLD),
@@ -163,11 +165,14 @@ POLICIES = {
   ("Damaged, wrong or missing items (7 days)", DMG),
   ("Lost packages", "No delivery scan 30 days after shipment: we send a replacement or a refund. See the Shipping Policy."),
   ("How refunds are paid", "Approved refunds go back to the original payment method. They usually appear within 5–10 business days, depending on your bank."),
-  ("How to cancel or claim", f"Email {SUP} with your order number (and photos for damaged/wrong items). Cancellation timing is measured from the time your order was placed, as recorded in your order confirmation email.")]),
+  ("Cost breakdown after production starts", "If you cancel a custom order after confirming production start, we deduct only the costs we have actually incurred for your order (materials/parts, machining/production, freight) and send you an itemized breakdown. The deduction is never more than the deposit amount for that item; the rest is refunded."),
+  ("How to cancel or claim", f"Email {SUP} with your order number (and photos for damaged/wrong items). Whether production had started is determined by your recorded Confirm production start click.")]),
  "terms": ("Terms of Service", "Terms of sale for orders placed on Tachi Club (tachiclub.oliandcece.com), operated by Oli&CeCe Inc.", [
   ("Who we are", "Tachi Club is operated by Oli&CeCe Inc., Commerce, California, USA. Contact: " + SUP + "."),
   ("US customers only", "We sell and ship only to customers with street addresses in the 50 US states and Washington, D.C. See the Shipping Policy."),
   ("Orders and payment", "Prices are in USD. For items that ship from our Los Angeles warehouse, US shipping is calculated at checkout from your ZIP and package size and shown as a separate line before you pay (free local pickup in LA); in-stock items shipped directly by our supplier include shipping. Custom items are ordered with a deposit (balance due before shipping); in-stock items are paid in full at checkout. Payments are processed by Stripe. Your order is accepted when we send the order confirmation email."),
+  ("Payment verification and order review", "Card payments may require 3D Secure authentication with your bank. Payments that fail card security checks (CVC or billing ZIP) may be declined. Orders over $500 from first-time customers are reviewed before we order parts; we may contact you to verify the order, or cancel it with a full refund."),
+  ("Production-start confirmation", "For custom items we order parts or start production only after you confirm the order specifications by clicking the Confirm production start link we email you."),
   ("Policies you agree to", "By checking the box on the order form you agree to these Terms, the Returns & Refund Policy and the Shipping Policy that apply to your payment option. The exact policy text shown to you, with the time of acceptance, is kept with your order and repeated in your confirmation email."),
   ("Fitment", "Fitment information is provided per our suppliers. Tell us your car, year and trim; for custom items we confirm fitment from your VIN/photos before ordering. Installation is your responsibility; professional installation is recommended where noted."),
   ("Mileage", "Digital clusters are programmed to match your vehicle's original odometer reading. We never alter mileage."),
@@ -183,7 +188,7 @@ for slug, (t, d, secs) in POLICIES.items():
           crumbs([("Home", "/"), (t, path)])]
     if slug == "returns-refund-policy":
         ld.append({"@type": "MerchantReturnPolicy", "@id": BASE + path + "#policy", "name": t, "url": BASE + path, "applicableCountry": "US", "returnPolicyCountry": "US",
-                   "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted", "description": "No returns or exchanges after shipment, except damaged, wrong or missing items reported with photos within 7 days of delivery (replacement or refund)."})
+                   "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted", "refundType": "https://schema.org/FullRefund", "returnFees": "https://schema.org/FreeReturn", "itemCondition": "https://schema.org/NewCondition", "description": "No returns or exchanges after shipment, except damaged, wrong or missing items reported with photos within 7 days of delivery (replacement first, else refund). Cancellation: custom items, full refund before the customer confirms production start, afterwards refund minus actual costs incurred (capped at the deposit); in-stock items, full refund any time before shipment. Refunds in 5-10 business days to the original payment method."})
     os.makedirs(slug, exist_ok=True)
     out = page(path, f"{t} | Tachi Club", d, img("981-224046832"), body, ld).replace('<script>/* boot the interactive SPA view for humans; crawlers read the static content above */</script>', '<script src="/app.js"></script>' if False else '')
     open(f"{slug}/index.html", "w", encoding="utf-8").write(out)
