@@ -44,7 +44,7 @@ def gen_faq(p=None):
         ("Do you ship outside the US?", "Currently we focus on US customers."),
         ("Is the deposit refundable? How do I cancel?", "Deposit & cancellation policy: " + POL),
     ]
-    if not p or p.get("payFull"):
+    if (p and p.get("payFull") and p.get("allowPayFull")) or (not p and any(x.get("payFull") and x.get("allowPayFull") for x in cfg["products"])):
         q.append(("Can I pay in full instead of a deposit? What is the refund policy?", "Yes, on the digital cluster pages you can choose Pay deposit or Pay in full. " + POLF))
     return q
 
@@ -117,7 +117,7 @@ for p in HERO + ACC:
 <h2>Fitment</h2><p>{E(p['fit'])}</p><p>Chassis: {E(p['code'])} · Years: {yrs} · Make: {E(p['make'])}</p>
 <h2>Price</h2><p>{E(price_txt)}</p>
 <h2>Specs</h2><ul>{''.join(f'<li>{E(s)}</li>' for s in p['specs'])}</ul>
-<h2>Deposit &amp; cancellation policy</h2><p class="note">{E(POL)}</p>{('<h2>Pay-in-full refund policy</h2><p class="note">' + E(POLF) + '</p>') if p.get('payFull') else ''}{xl(p)}
+<h2>Deposit &amp; cancellation policy</h2><p class="note">{E(POL)}</p>{('<h2>Pay-in-full refund policy</h2><p class="note">' + E(POLF) + '</p>') if p.get('payFull') and p.get('allowPayFull') else ''}{xl(p)}
 <p><a class="btn" href="/#/p/{pid}">Order / pre-order this item</a></p>
 <h2>FAQ</h2>{faq_html(q)}</div></article>"""
     os.makedirs(f"p/{pid}", exist_ok=True)
@@ -157,7 +157,7 @@ open("llms.txt", "w", encoding="utf-8").write(f"""# Tachi Club
 ## Policies
 - Lead time: {LEAD}; large items such as the 718 rear diffuser 4–6 weeks.
 - Deposit & cancellation policy (deposit orders): {POL}
-- Pay-in-full refund policy (digital clusters, full payment): {POLF}
+{"- Pay-in-full refund policy (digital clusters, full payment): " + POLF if any(x.get("allowPayFull") for x in cfg["products"]) else "- Digital clusters: deposit pre-order only for now."}
 - Fitment is confirmed from VIN/photos before ordering or building.
 
 ## Pages
