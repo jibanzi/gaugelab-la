@@ -9,6 +9,7 @@ cfg = json.loads(subprocess.check_output(["node", "-e",
 app = open("app.js", encoding="utf-8").read()
 POL = re.search(r"POL=\(\)=>T\('([^']*)'", app).group(1)
 POLF = re.search(r"POLF=\(\)=>T\('([^']*)'", app).group(1)
+POLD = re.search(r"POLD=\(\)=>T\('([^']*)'", app).group(1)
 DESC = "Tachi Club makes plug-in digital LCD gauge clusters (instrument cluster swaps) for Toyota GT86 / Subaru BRZ / Scion FR-S, Honda Civic EK and Porsche 987/981 Cayman & Boxster, plus supporting carbon accessories. Made to order, US customers, Los Angeles."
 HERO = [p for p in cfg["products"] if not p.get("acc")]
 ACC = [p for p in cfg["products"] if p.get("acc")]
@@ -35,19 +36,19 @@ def gen_faq(p=None):
                 q.append((f"How much is the {p['name']}?", "Standard: $%s (deposit $%s). Premium: $%s (deposit $%s). Prices in USD." % (
                     f"{pv['standard']:,}", f"{dv.get('standard', p.get('deposit') or cfg['depositUSD']):,}", f"{pv['premium']:,}", f"{dv.get('premium', p.get('deposit') or cfg['depositUSD']):,}")))
             else:
-                q.append((f"How much is the {p['name']}?", f"${p['price']:,} USD, paid in full at checkout (in stock, no deposit). " + POLF) if p.get("direct") else (f"How much is the {p['name']}?", f"${p['price']:,} USD, with a ${p.get('deposit', cfg['depositUSD']):,} deposit to place the order."))
+                q.append((f"How much is the {p['name']}?", f"${p['price']:,} USD, paid in full at checkout (in stock, no deposit). " + POLD) if p.get("direct") else (f"How much is the {p['name']}?", f"${p['price']:,} USD, with a ${p.get('deposit', cfg['depositUSD']):,} deposit to place the order."))
         else:
             q.append((f"How much is the {p['name']}?", f"Final pricing is confirmed after the fitment check and before build. A ${cfg['depositUSD']} deposit starts the order."))
     q += [
         ("Are these items in stock?", "No. All items are custom / made to order (or sourced to order) for your car after fitment is confirmed."),
         ("How long does it take?", f"Current estimate: {LEAD} after you approve the order. Some large items (e.g. the 718 rear diffuser) are estimated at 4–6 weeks. We will update you if this changes."),
-        ("Do you ship outside the US?", "Currently we focus on US customers."),
+        ("Do you ship outside the US?", f"No. We ship only to street addresses in the 50 US states and Washington, D.C. We do not ship to PO Boxes, APO/FPO/DPO, Puerto Rico or other US territories, or outside the US. Prices include shipping to the US. See {BASE}/shipping-policy/"),
         ("Is the deposit refundable? How do I cancel?", "Deposit & cancellation policy: " + POL),
     ]
     if p and p.get("direct"):  # in-stock AE item: pay in full, no deposit
         q = q[:-4] + [("Is it in stock?", "Yes. This is an in-stock item from our supplier: you pay the full price at checkout (no deposit) and it ships directly to your US address, est. 2–3 weeks."),
-                      ("Do you ship outside the US?", "Currently we focus on US customers."),
-                      ("Can I cancel? What is the refund policy?", POLF)]
+                      ("Do you ship outside the US?", f"No. We ship only to street addresses in the 50 US states and Washington, D.C. We do not ship to PO Boxes, APO/FPO/DPO, Puerto Rico or other US territories, or outside the US. Prices include shipping to the US. See {BASE}/shipping-policy/"),
+                      ("Can I cancel? What is the refund policy?", POLD)]
     if (p and p.get("payFull") and p.get("allowPayFull")) or (not p and any(x.get("payFull") and x.get("allowPayFull") for x in cfg["products"])):
         q.append(("Can I pay in full instead of a deposit? What is the refund policy?", "Yes, on the digital cluster pages you can choose Pay deposit or Pay in full. " + POLF))
     return q
@@ -124,8 +125,9 @@ for p in HERO + ACC:
 <h2>Fitment</h2><p>{E(p['fit'])}</p><p>Chassis: {E(p['code'])} · Years: {yrs} · Make: {E(p['make'])}</p>
 <h2>Price</h2><p>{E(price_txt)}</p>
 <h2>Specs</h2><ul>{''.join(f'<li>{E(s)}</li>' for s in p['specs'])}</ul>
-{'' if p.get('direct') else '<h2>Deposit &amp; cancellation policy</h2><p class="note">' + E(POL) + '</p>'}{('<h2>Pay-in-full refund policy</h2><p class="note">' + E(POLF) + '</p>') if (p.get('payFull') and p.get('allowPayFull')) or p.get('direct') else ''}{xl(p)}
+{'' if p.get('direct') else '<h2>Deposit &amp; cancellation policy</h2><p class="note">' + E(POL) + '</p>'}{('<h2>' + ('Refund policy (in-stock item)' if p.get('direct') else 'Pay-in-full refund policy') + '</h2><p class="note">' + E(POLD if p.get('direct') else POLF) + '</p>') if (p.get('payFull') and p.get('allowPayFull')) or p.get('direct') else ''}{xl(p)}
 <p><a class="btn" href="/#/p/{pid}">{"Buy now – pay in full" if p.get("direct") else "Order / pre-order this item"}</a></p>
+<p class="note">US customers only (50 states + DC). <a href="/shipping-policy/">Shipping Policy</a> · <a href="/returns-refund-policy/">Returns &amp; Refund Policy</a> · <a href="/terms/">Terms of Service</a></p>
 <h2>FAQ</h2>{faq_html(q)}</div></article>"""
     os.makedirs(f"p/{pid}", exist_ok=True)
     out = page(path, title, desc, img(p["hero"]), body, ld)
@@ -135,6 +137,55 @@ for p in HERO + ACC:
     open(f"p/{pid}/index.html", "w", encoding="utf-8").write(out)
     urls.append((path, "0.9"))
     llms_products.append(f"- [{p['name']}]({BASE + path}): {summary} Fitment: {p['fit']}")
+
+
+# ---- Policy pages (2026-11-01, Cheung decisions). Support email per Cheung; no phone/extra address invented.
+SUP = "support@oliandcece.com"
+DMG = f"If your item arrives damaged, is the wrong item, or is missing parts, email {SUP} with your order number and photos within 7 days of delivery. We will send a replacement or refund you. This is the only exception to the no-returns rule for shipped orders."
+POLICIES = {
+ "shipping-policy": ("Shipping Policy", "Tachi Club ships only to street addresses in the 50 US states and Washington, D.C. Shipping times, tracking, lost packages and address rules.", [
+  ("Where do you ship?", "We ship only to street addresses in the 50 US states and Washington, D.C. (including Alaska and Hawaii)."),
+  ("Where don't you ship?", "We do not ship to PO Boxes, APO/FPO/DPO military or diplomatic addresses, Puerto Rico or other US territories, or any address outside the United States. Orders with these addresses are refused at checkout."),
+  ("How much is shipping?", "Prices include shipping to the US. There is no separate shipping charge at checkout."),
+  ("When will my order ship? (in-stock items)", "In-stock accessories (marked \"In stock · pay in full\") ship directly from our supplier, usually within 2–5 business days after your order. Transit is usually about 7–15 business days."),
+  ("When will my order ship? (custom items)", "Custom / made-to-order items ship after production, per the lead time shown on each product page: digital clusters are estimated at 3–5 weeks, and other custom parts at about 2–6 weeks (large items such as the 718 rear diffuser 4–6 weeks). We email you if the estimate changes."),
+  ("Tracking and delivery confirmation", "When your order ships we email you the carrier and tracking number. When the carrier shows it delivered, we email you a delivery confirmation."),
+  ("Late or lost packages", f"If tracking has not updated or your package has not arrived, email {SUP} with your order number and we will open a trace with the carrier. If there is still no delivery scan 30 days after shipment, we treat the package as lost and send a replacement or a refund."),
+  ("Wrong address", f"Please check your address at checkout; you are responsible for a correct, complete address. Before shipment, email {SUP} and we will try to update it. After shipment we cannot change it. If a package is returned or lost because of an incorrect address, reshipping may cost extra."),
+  ("Damaged, wrong or missing items", DMG),
+  ("Contact", f"Email {SUP} with your order number.")]),
+ "returns-refund-policy": ("Returns & Refund Policy", "Cancellation and refund rules for Tachi Club deposit pre-orders, pay-in-full orders and in-stock items; 7-day damaged/wrong item cover.", [
+  ("Deposit pre-orders (custom items)", POL),
+  ("Paid-in-full custom items", POLF),
+  ("In-stock items (paid in full, ship direct from our supplier)", POLD),
+  ("After shipment", "Once an order has shipped, we do not accept returns, refunds or exchanges, except for the damaged, wrong or missing item cover below."),
+  ("Damaged, wrong or missing items (7 days)", DMG),
+  ("Lost packages", "No delivery scan 30 days after shipment: we send a replacement or a refund. See the Shipping Policy."),
+  ("How refunds are paid", "Approved refunds go back to the original payment method. They usually appear within 5–10 business days, depending on your bank."),
+  ("How to cancel or claim", f"Email {SUP} with your order number (and photos for damaged/wrong items). Cancellation timing is measured from the time your order was placed, as recorded in your order confirmation email.")]),
+ "terms": ("Terms of Service", "Terms of sale for orders placed on Tachi Club (tachiclub.oliandcece.com), operated by Oli&CeCe Inc.", [
+  ("Who we are", "Tachi Club is operated by Oli&CeCe Inc., Commerce, California, USA. Contact: " + SUP + "."),
+  ("US customers only", "We sell and ship only to customers with street addresses in the 50 US states and Washington, D.C. See the Shipping Policy."),
+  ("Orders and payment", "Prices are in USD and include shipping to the US. Custom items are ordered with a deposit (balance due before shipping); in-stock items are paid in full at checkout. Payments are processed by Stripe. Your order is accepted when we send the order confirmation email."),
+  ("Policies you agree to", "By checking the box on the order form you agree to these Terms, the Returns & Refund Policy and the Shipping Policy that apply to your payment option. The exact policy text shown to you, with the time of acceptance, is kept with your order and repeated in your confirmation email."),
+  ("Fitment", "Fitment information is provided per our suppliers. Tell us your car, year and trim; for custom items we confirm fitment from your VIN/photos before ordering. Installation is your responsibility; professional installation is recommended where noted."),
+  ("Mileage", "Digital clusters are programmed to match your vehicle's original odometer reading. We never alter mileage."),
+  ("Cancellations, refunds, returns", "As set out in the Returns & Refund Policy, including the 7-day damaged/wrong/missing item cover."),
+  ("Payment disputes", f"If there is a problem with your order, please contact {SUP} first so we can fix it quickly. We keep records of your order, policy acceptance, payment verification, emails and shipping to respond to card disputes."),
+  ("Trademarks", "Not affiliated with Toyota, Subaru, Honda, Mazda or Porsche. Brand names are used for fitment reference only."),
+  ("Changes", "We may update these terms; the version shown at the time of your order applies to that order.")])}
+for slug, (t, d, secs) in POLICIES.items():
+    path = f"/{slug}/"; urls.append((path, "0.5"))
+    body = f"<article><div class=\"wrap\"><h1>{E(t)}</h1><p class=\"lead\">{E(d)}</p><p class=\"note\">Last updated {TODAY}.</p>" + "".join(f"<h2>{E(a)}</h2><p>{E(b)}</p>" for a, b in secs) + \
+        '<p class="note"><a href="/shipping-policy/">Shipping Policy</a> · <a href="/returns-refund-policy/">Returns &amp; Refund Policy</a> · <a href="/terms/">Terms of Service</a> · <a href="/faq/">FAQ</a></p></div></article>'
+    ld = [ORG, SITE, {"@type": "WebPage", "@id": BASE + path, "name": t, "url": BASE + path, "description": d, "dateModified": TODAY, "isPartOf": {"@id": BASE + "/#website"}, "publisher": {"@id": BASE + "/#org"}},
+          crumbs([("Home", "/"), (t, path)])]
+    if slug == "returns-refund-policy":
+        ld.append({"@type": "MerchantReturnPolicy", "@id": BASE + path + "#policy", "name": t, "url": BASE + path, "applicableCountry": "US", "returnPolicyCountry": "US",
+                   "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted", "description": "No returns or exchanges after shipment, except damaged, wrong or missing items reported with photos within 7 days of delivery (replacement or refund)."})
+    os.makedirs(slug, exist_ok=True)
+    out = page(path, f"{t} | Tachi Club", d, img("981-224046832"), body, ld).replace('<script>/* boot the interactive SPA view for humans; crawlers read the static content above */</script>', '<script src="/app.js"></script>' if False else '')
+    open(f"{slug}/index.html", "w", encoding="utf-8").write(out)
 
 # FAQ page
 q = gen_faq() + [("What about my mileage (digital clusters)?", "Federal law requires the replacement cluster to show the vehicle’s true mileage. We program each cluster to match your original odometer reading, which is why we ask for an odometer photo and VIN. We never alter mileage."),
@@ -169,6 +220,9 @@ open("llms.txt", "w", encoding="utf-8").write(f"""# Tachi Club
 
 ## Pages
 - [FAQ]({BASE}/faq/)
+- [Shipping Policy]({BASE}/shipping-policy/): US only — 50 states + DC; no PO Boxes, APO/FPO/DPO, PR/territories; prices include US shipping; in-stock items ship in 2–5 business days + ~7–15 transit.
+- [Returns & Refund Policy]({BASE}/returns-refund-policy/)
+- [Terms of Service]({BASE}/terms/)
 - [Sitemap]({BASE}/sitemap.xml)
 """)
 print("ok", len(urls), "urls")
@@ -184,5 +238,5 @@ ix = re.sub(r'\n?<link rel="canonical"[^>]*>', '', ix)
 ix = re.sub(r'<meta property="og:url"[^>]*>', '', ix)
 ix = ix.replace('<link rel="icon"', f'<link rel="canonical" href="{BASE}/"><meta property="og:url" content="{BASE}/">\n<link rel="icon"', 1)
 li = lambda L: "".join(f'<li><a href="/p/{p["id"]}/">{E(p["name"])} ({E(p["code"])}, {p["years"][0]}–{p["years"][1]})</a></li>' for p in L)
-ix = re.sub(r'<main id="app">.*?</main>', f'<main id="app"><h1>Tachi Club — digital LCD gauge clusters, Los Angeles</h1><p>{E(DESC)}</p><h2>Digital clusters</h2><ul>{li(HERO)}</ul><h2>Accessories</h2><ul>{li(ACC)}</ul><p><a href="/faq/">FAQ</a></p></main>', ix, flags=re.S)
+ix = re.sub(r'<main id="app">.*?</main>', f'<main id="app"><h1>Tachi Club — digital LCD gauge clusters, Los Angeles</h1><p>{E(DESC)}</p><h2>Digital clusters</h2><ul>{li(HERO)}</ul><h2>Accessories</h2><ul>{li(ACC)}</ul><p><a href="/faq/">FAQ</a> · <a href="/shipping-policy/">Shipping Policy</a> · <a href="/returns-refund-policy/">Returns &amp; Refund Policy</a> · <a href="/terms/">Terms of Service</a></p></main>', ix, flags=re.S)
 open("index.html", "w", encoding="utf-8").write(ix)
