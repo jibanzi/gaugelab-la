@@ -56,3 +56,5 @@ header{border-bottom:0;box-shadow:0 2px 0 var(--acc)}header:after{content:"";pos
 .card{--s:0}.card:before{content:"";position:absolute;z-index:3;inset:0;background:linear-gradient(-35deg,transparent 48%,#fff 49.5%,transparent 51%);transform:translateX(-120%);pointer-events:none}.card:hover:before{transition:transform .5s;transform:translateX(120%)}
 footer .stk{margin-bottom:10px}
 @media(prefers-reduced-motion:reduce){.card:hover:before{transition:none}}
+
+.lang{display:inline-flex;border:1px solid var(--acc)}.lang button{background:none;border:0;color:var(--tx);font:700 12px var(--m);padding:3px 8px;cursor:pointer}.lang button.on{background:var(--acc);color:#090909}
