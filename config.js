@@ -5,12 +5,12 @@ window.SITE = {
   email: "hello@example.com",          // TODO: Cheung's contact email
   formEndpoint: "",                    // FormSubmit/Formspree URL; empty = mailto fallback
   stripeCheckoutUrl: "",               // TODO: Stripe Payment Link (deposit)
-  stripeMode: "test",                  // TEST MODE ONLY until pricing is final
-  stripePublishableKey: "pk_test_51USZX8PDlj1T6aYNX96LQLhuZYCBECDTOueMXt1ASebihbgpHuO0mdtikaXKD9RrHcvhPHb2i4b22Ly6NRBW4dEz00EuJfoI1O",            // pk_test_... (publishable only; NEVER sk_/rk_ here)
-  paymentLinks: {                      // Stripe TEST Payment Links per product/option; empty = "coming soon"
-    gt86: { standard: "https://buy.stripe.com/test_00w9AV8Tvf5bfDfgC14ko00", premium: "https://buy.stripe.com/test_3cI6oJ6LncX31Mp3Pf4ko01" },   // $899 / $1049
-    ek:   { standard: "https://buy.stripe.com/test_bJedRb7Pr9KRfDf2Lb4ko02", premium: "https://buy.stripe.com/test_3cI7sNfhT1elfDf3Pf4ko03" },   // $799 / $999
-    "987":{ standard: "https://buy.stripe.com/test_cNidRbd9L7CJbmZ5Xn4ko04", premium: "https://buy.stripe.com/test_bJe28t5Hj0ah76J85v4ko05" },   // $1299 / $1549
+  stripeMode: "live",                  // LIVE (HECCEI LTD) approved by Cheung t306u 2026-11-01; all payments via orderApi backend Checkout
+  stripePublishableKey: "pk_live_51H9kpZAcpVACF0U1IBf0EN1mN4V32JSgKmfYiuiotM1NjmphZA0HynM7mR1fA9JwL3lk4C4Oba8t6skNQ2uncq9k00l1Cdb9la",            // pk_live_ (publishable only; NEVER sk_/rk_ here)
+  paymentLinks: {                      // option keys only; links intentionally empty — all payments go through orderApi Checkout (deposit/shipping/policy logic)
+    gt86: { standard: "", premium: "" },   // $899 / $1049
+    ek:   { standard: "", premium: "" },   // $799 / $999
+    "987":{ standard: "", premium: "" },   // $1299 / $1549
     gr86tl: { standard: "" },               // $649
     p987sw: { standard: "", premium: "" },  // $1499 / $2099
     c9ymc: { standard: "" },                // $339
