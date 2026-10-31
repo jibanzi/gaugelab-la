@@ -1,6 +1,6 @@
 // ===== EDIT EVERYTHING HERE =====
 window.SITE = {
-  brand: "GaugeLab LA",
+  brand: "Tachi Club",
   tagline: "Digital cluster swaps for JDM + Euro chassis. Fitted in Los Angeles.",
   email: "hello@example.com",          // TODO: Cheung's contact email
   formEndpoint: "",                    // FormSubmit/Formspree URL; empty = mailto fallback

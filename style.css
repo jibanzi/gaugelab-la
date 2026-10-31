@@ -46,3 +46,13 @@ footer{border-top:2px solid var(--acc);padding:24px 18px;color:var(--mut);font:1
 .lb{position:fixed;inset:0;background:#000e;z-index:60;display:flex;align-items:center;justify-content:center;padding:20px}.lb img{max-width:100%;max-height:100%}
 @media(prefers-reduced-motion:reduce){.mq div,.grain{animation:none}.rv{opacity:1;transform:none}}
 @media(max-width:899px){.pm{order:2}}
+.wm{height:34px;width:auto;display:block;overflow:visible}.logo:hover .wm path{animation:sl .45s ease}
+@keyframes sl{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(0 0 0 0)}}
+.kanji{position:fixed;right:6px;top:90px;writing-mode:vertical-rl;font:900 64px/1 'Noto Serif JP','Hiragino Mincho ProN',serif;color:transparent;-webkit-text-stroke:1px #c6ff0070;z-index:1;pointer-events:none;letter-spacing:10px}
+@media(max-width:700px){.kanji{font-size:38px;top:auto;bottom:10px;opacity:.6}}
+.cut{position:relative;height:28px;margin:60px 0 -40px;background:linear-gradient(-4deg,transparent 46%,var(--acc) 46%,var(--acc) 50%,transparent 50%,transparent 54%,var(--hot) 54%,var(--hot) 55%,transparent 55%)}
+.cut:after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:8px;opacity:.5;background:repeating-linear-gradient(45deg,var(--tx) 0 2px,transparent 2px 9px),repeating-linear-gradient(-45deg,var(--tx) 0 2px,transparent 2px 9px)}
+header{border-bottom:0;box-shadow:0 2px 0 var(--acc)}header:after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:6px;opacity:.35;background:radial-gradient(circle at 50% 100%,transparent 4px,var(--acc) 5px,transparent 6px) 0 0/12px 6px}
+.card{--s:0}.card:before{content:"";position:absolute;z-index:3;inset:0;background:linear-gradient(-35deg,transparent 48%,#fff 49.5%,transparent 51%);transform:translateX(-120%);pointer-events:none}.card:hover:before{transition:transform .5s;transform:translateX(120%)}
+footer .stk{margin-bottom:10px}
+@media(prefers-reduced-motion:reduce){.card:hover:before{transition:none}}
