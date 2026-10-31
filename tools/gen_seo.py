@@ -35,7 +35,7 @@ def gen_faq(p=None):
                 q.append((f"How much is the {p['name']}?", "Standard: $%s (deposit $%s). Premium: $%s (deposit $%s). Prices in USD." % (
                     f"{pv['standard']:,}", f"{dv.get('standard', p.get('deposit') or cfg['depositUSD']):,}", f"{pv['premium']:,}", f"{dv.get('premium', p.get('deposit') or cfg['depositUSD']):,}")))
             else:
-                q.append((f"How much is the {p['name']}?", f"${p['price']:,} USD, with a ${p.get('deposit', cfg['depositUSD']):,} deposit to place the order."))
+                q.append((f"How much is the {p['name']}?", f"${p['price']:,} USD, paid in full at checkout (in stock, no deposit). " + POLF) if p.get("direct") else (f"How much is the {p['name']}?", f"${p['price']:,} USD, with a ${p.get('deposit', cfg['depositUSD']):,} deposit to place the order."))
         else:
             q.append((f"How much is the {p['name']}?", f"Final pricing is confirmed after the fitment check and before build. A ${cfg['depositUSD']} deposit starts the order."))
     q += [
@@ -44,6 +44,10 @@ def gen_faq(p=None):
         ("Do you ship outside the US?", "Currently we focus on US customers."),
         ("Is the deposit refundable? How do I cancel?", "Deposit & cancellation policy: " + POL),
     ]
+    if p and p.get("direct"):  # in-stock AE item: pay in full, no deposit
+        q = q[:-4] + [("Is it in stock?", "Yes. This is an in-stock item from our supplier: you pay the full price at checkout (no deposit) and it ships directly to your US address, est. 2–3 weeks."),
+                      ("Do you ship outside the US?", "Currently we focus on US customers."),
+                      ("Can I cancel? What is the refund policy?", POLF)]
     if (p and p.get("payFull") and p.get("allowPayFull")) or (not p and any(x.get("payFull") and x.get("allowPayFull") for x in cfg["products"])):
         q.append(("Can I pay in full instead of a deposit? What is the refund policy?", "Yes, on the digital cluster pages you can choose Pay deposit or Pay in full. " + POLF))
     return q
@@ -95,14 +99,17 @@ for p in HERO + ACC:
     else:
         price_txt = f"Quoted after fitment check (${cfg['depositUSD']} deposit)"
     summary = f"{p['name']} for {p['make']} {p['code']} ({yrs}). {p['plug']}. Made to order; {LEAD}. {price_txt}."
+    if p.get("direct"): summary = f"{p['name']} for {p['make']} {p['code']} ({yrs}). {p['plug']}. In stock; pay in full at checkout (no deposit); ships direct from our supplier, est. 2–3 weeks. {price_txt}."
     title = f"{p['name']} ({p['code']}, {yrs}) | Tachi Club" if p.get("acc") else f"{p['name']} – Digital LCD Gauge Cluster Swap ({p['code']}, {yrs}) | Tachi Club"
     desc = (f"{p['name']} for {p['make']} {p['code']} {yrs}. {p['plug']}. {price_txt}. Made to order, ships in the US from Los Angeles.")[:300]
+    if p.get("seoTitle"): title = f"{p['seoTitle']} | Tachi Club"
+    if p.get("seoDesc"): desc = p["seoDesc"][:300]
     q = gen_faq(p)
     prod = {"@type": "Product", "@id": BASE + path + "#product", "name": p["name"], "sku": pid, "category": "Automotive " + kind,
             "brand": {"@type": "Brand", "name": "Tachi Club"}, "description": f"{p['fit']} " + " ".join(p["specs"]),
             "image": [img(p["hero"])] + [img(n) for n in g if n != p["hero"]][:5], "url": BASE + path}
     if p.get("price"):
-        avail = "https://schema.org/PreOrder"
+        avail = "https://schema.org/InStock" if p.get("direct") else "https://schema.org/PreOrder"
         seller = {"@id": BASE + "/#org"}
         if p.get("priceV"):
             prod["offers"] = [{"@type": "Offer", "name": k.title(), "price": str(v), "priceCurrency": "USD", "availability": avail,
@@ -110,15 +117,15 @@ for p in HERO + ACC:
         else:
             prod["offers"] = {"@type": "Offer", "price": str(p["price"]), "priceCurrency": "USD", "availability": avail, "url": BASE + path, "seller": seller}
     ld = [ORG, SITE, prod, crumbs([("Home", "/"), (p["name"], path)]), faq_ld(q)]
-    gal = "".join(f'<img loading="lazy" src="/media/img/{n}-s.webp" alt="{E(p["name"])} – {E(p["code"])} photo {i + 1}">' for i, n in enumerate(g))
+    gal = "".join(f'<img loading="lazy" src="/media/img/{n}-s.webp" alt="{E((p.get("alts") or [])[i] if i < len(p.get("alts") or []) else p["name"] + " – " + p["code"] + " photo " + str(i + 1))}">' for i, n in enumerate(g))
     body = f"""<article class="pgrid"><div class="pm"><img class="main-media" src="/media/img/{p['hero']}.webp" alt="{E(p['name'])} installed – {E(p['make'])} {E(p['code'])}"><div class="gal" style="margin-top:8px">{gal}</div></div>
 <div><nav aria-label="Breadcrumb"><a href="/">Home</a> › {E(p['name'])}</nav><h1>{E(p['name'])}</h1>
 <p class="lead"><b>Summary:</b> {E(summary)}</p>
 <h2>Fitment</h2><p>{E(p['fit'])}</p><p>Chassis: {E(p['code'])} · Years: {yrs} · Make: {E(p['make'])}</p>
 <h2>Price</h2><p>{E(price_txt)}</p>
 <h2>Specs</h2><ul>{''.join(f'<li>{E(s)}</li>' for s in p['specs'])}</ul>
-<h2>Deposit &amp; cancellation policy</h2><p class="note">{E(POL)}</p>{('<h2>Pay-in-full refund policy</h2><p class="note">' + E(POLF) + '</p>') if p.get('payFull') and p.get('allowPayFull') else ''}{xl(p)}
-<p><a class="btn" href="/#/p/{pid}">Order / pre-order this item</a></p>
+{'' if p.get('direct') else '<h2>Deposit &amp; cancellation policy</h2><p class="note">' + E(POL) + '</p>'}{('<h2>Pay-in-full refund policy</h2><p class="note">' + E(POLF) + '</p>') if (p.get('payFull') and p.get('allowPayFull')) or p.get('direct') else ''}{xl(p)}
+<p><a class="btn" href="/#/p/{pid}">{"Buy now – pay in full" if p.get("direct") else "Order / pre-order this item"}</a></p>
 <h2>FAQ</h2>{faq_html(q)}</div></article>"""
     os.makedirs(f"p/{pid}", exist_ok=True)
     out = page(path, title, desc, img(p["hero"]), body, ld)
