@@ -1,0 +1,45 @@
+const S=window.SITE,$=s=>document.querySelector(s),app=$('#app');
+const [b1,...b2]=S.brand.split(' ');document.getElementById('logo').innerHTML=`${b1}<b> ${b2.join(' ')}</b>`;document.title=S.brand+' — '+S.tagline;
+$('#foot').innerHTML=`© ${new Date().getFullYear()} ${S.brand} · Los Angeles, CA · Not affiliated with Toyota, Subaru, Honda or Porsche. Brand names are used for fitment reference only.`;
+const price=p=>p.price?`From $${p.price}`:`Final price confirmed before build`;
+const dash=(n='88',u='MPH')=>`<div class="dash"><div class="g g1"></div><div class="g g2"></div><div class="mid"><div class="n">${n}</div><div class="u">${u}</div></div></div>`;
+const card=p=>`<div class="card">${dash(p.years[0]%100,p.chassis.split(' ')[0])}<h3>${p.name}</h3><div><span class="tag">${p.years[0]}–${p.years[1]}</span><span class="tag">${p.chassis}</span></div><p style="color:var(--mut)">${price(p)} · $${S.depositUSD} refundable deposit</p><a class="btn" href="#/p/${p.id}">View details</a></div>`;
+const steps=`<div class="steps"><div><b>Reserve</b><br>Send your VIN, odometer photo and cluster photos with a refundable $${S.depositUSD} deposit.</div><div><b>Fitment check</b><br>We confirm compatibility and the final price before anything is built.</div><div><b>Build</b><br>Your cluster is built by our manufacturing partner. Est. ${S.leadTime}.</div><div><b>LA quality check</b><br>Inspected and bench-tested at our Los Angeles facility.</div><div><b>Ship or install</b><br>Shipped to you, or installed by us in LA / at a partner shop.</div></div>`;
+const install=`<div class="cards"><div class="card"><h3>DIY</h3><p>Plug-and-play models come with connectors and a guide. Typical install is done with basic hand tools.</p></div><div class="card"><h3>LA install</h3><p>Book an install at our Los Angeles location after your cluster passes QC.</p></div><div class="card"><h3>Partner shop</h3><p>Outside LA? We can ship to a shop you trust, or suggest one where available.</p></div></div>`;
+const R={
+'':()=>`<section class="hero"><div><h1>A modern digital dash for the car you already love.</h1><p class="lead">${S.tagline}. Pre-order with a refundable deposit — we confirm fitment and final price before build.</p><a class="btn" href="#/models">Find my fit</a> <a class="btn ghost" href="#/how">How it works</a></div>${dash()}</section>
+<div class="sel"><select id="fy"><option value="">Year</option>${Array.from({length:2016-1996+5},(_,i)=>2020-i).map(y=>`<option>${y}</option>`).join('')}</select><select id="fm"><option value="">Make</option>${[...new Set(S.products.flatMap(p=>p.makes))].map(m=>`<option>${m}</option>`).join('')}</select><select id="fmo"><option value="">Model</option></select><button class="btn" id="go">Check</button></div><div id="fr"></div>
+<h2 id="models">Launch models</h2><div class="cards">${S.products.map(card).join('')}</div>
+<p style="color:var(--mut)">Coming soon / request a quote: ${S.comingSoon.join(' · ')} — <a href="#/request">request your car</a>.</p>
+<h2>How it works</h2>${steps}<h2>Install options</h2>${install}`,
+how:()=>`<h1>How it works</h1>${steps}<h2>Install options</h2>${install}`,
+faq:()=>`<h1>FAQ</h1>${[
+['What about my mileage?','Federal law requires the replacement cluster to show the vehicle’s true mileage. We program each cluster to match your original odometer reading, which is why we ask for an odometer photo and VIN. We never alter mileage.'],
+['How much does it cost?','Final pricing is confirmed after the fitment check and before build. The $'+S.depositUSD+' deposit is refundable until you approve the build.'],
+['How long does it take?','Current estimate: '+S.leadTime+' after you approve the build. We will update you if this changes.'],
+['Will it fit my exact car?','We check your VIN, trim and photos of your current cluster before building. If it is not a fit, your deposit is refunded.'],
+['Do you ship outside the US?','Currently we focus on US customers.'],
+['Warranty?','Warranty terms will be shared with your quote.']].map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join('')}`,
+about:()=>`<h1>About & contact</h1><p class="lead">${S.brand} is a Los Angeles team bringing modern digital instrument clusters to enthusiast cars, with local quality checks and install support.</p><p>Email: <a href="mailto:${S.email}">${S.email}</a></p>`,
+request:()=>`<h1>Request another car</h1><p class="lead">We are adding models. Tell us what you drive and we will let you know when it is available.</p>${form('request',`<label>Make</label><input name="make" required><label>Model</label><input name="model" required><label>Year</label><input name="year" required><label>Email</label><input type="email" name="email" required><label>Notes</label><textarea name="notes"></textarea>`,'Submit request')}`,
+p:id=>{const p=S.products.find(x=>x.id==id);return `<a href="#/">← All models</a><section class="hero"><div><h1>${p.name}</h1><span class="tag">${p.make}</span><span class="tag">${p.years[0]}–${p.years[1]}</span><span class="tag">${p.chassis}</span><span class="tag">${p.plug}</span><p class="note"><b>Fitment:</b> ${p.fit}</p><p><b>${price(p)}</b><br>Refundable deposit: $${S.depositUSD}<br>Est. lead time: ${S.leadTime}</p><a class="btn" href="#/order/${p.id}">Pre-order</a></div>${dash()}</section><h2>How it works</h2>${steps}<h2>Install options</h2>${install}`},
+order:id=>{const p=S.products.find(x=>x.id==id);return `<h1>Pre-order: ${p.name}</h1><p class="lead">No payment now. After the fitment check we send a secure payment link for the $${S.depositUSD} refundable deposit and confirm your final price.</p>${form('order',`<input type="hidden" name="product" value="${p.name}">
+<label>Full name</label><input name="name" required><label>Email</label><input type="email" name="email" required><label>Phone</label><input type="tel" name="phone" required>
+<label>Ship-to state</label><input name="state" required maxlength="2" placeholder="CA"><label>ZIP</label><input name="zip" required pattern="[0-9]{5}">
+<label>VIN</label><input name="vin" required minlength="11" maxlength="17"><label>Year / trim / options (e.g. push-start, dual-zone climate, transmission)</label><input name="trim" required>
+<label>Current odometer reading (miles)</label><input name="odometer" type="number" required><label>Odometer photo</label><input type="file" name="odometer_photo" accept="image/*" required>
+<label>Photos of current cluster</label><input type="file" name="cluster_photos" accept="image/*" multiple required>
+<label>Install preference</label><select name="install" required><option value="">Choose</option><option>DIY (ship to me)</option><option>LA install</option><option>Partner shop</option></select>
+<label class="chk"><input type="checkbox" name="mileage_ack" required> I understand federal law requires the new cluster to show my vehicle’s true mileage. ${S.brand} programs it to match my original odometer reading and never alters mileage.</label>`,'Submit pre-order')}`}
+};
+function form(kind,inner,btn){return `<form id="f" data-kind="${kind}" style="max-width:620px">${inner}<p><button class="btn">${btn}</button></p></form><div id="msg"></div>`}
+async function submit(e){e.preventDefault();const f=e.target,fd=new FormData(f);fd.append('_subject',`[${S.brand}] ${f.dataset.kind}`);
+ if(S.formEndpoint){const r=await fetch(S.formEndpoint,{method:'POST',body:fd,headers:{Accept:'application/json'}});if(!r.ok){$('#msg').innerHTML='<p class="note">Something went wrong. Please email us.</p>';return}}
+ else{const t=[...fd].filter(([k,v])=>typeof v=='string').map(([k,v])=>`${k}: ${v}`).join('\n');location.href=`mailto:${S.email}?subject=${encodeURIComponent(fd.get('_subject'))}&body=${encodeURIComponent(t+'\n\n(Please attach your photos to this email.)')}`}
+ f.remove();$('#msg').innerHTML=`<div class="ok"><b>Thanks — received.</b><br>${f.dataset.kind=='order'?(S.stripeCheckoutUrl?`<a class="btn" href="${S.stripeCheckoutUrl}">Pay $${S.depositUSD} refundable deposit</a>`:'We will review fitment and send you a secure payment link for the refundable deposit.'):'We will email you when this model is available.'}</div>`}
+function route(){const [,a='',b]=location.hash.split('/');if(a=='models'){R['']();}
+ app.innerHTML=(R[a]||R[''])(b);scrollTo(0,0);if(a=='models')$('#models').scrollIntoView();
+ const f=$('#f');f&&f.addEventListener('submit',submit);
+ const fm=$('#fm');if(fm){fm.onchange=()=>{$('#fmo').innerHTML='<option value="">Model</option>'+S.products.filter(p=>p.makes.includes(fm.value)).map(p=>`<option value="${p.id}">${p.name.replace(' Digital Cluster','')}</option>`).join('')};
+ $('#go').onclick=()=>{const p=S.products.find(x=>x.id==$('#fmo').value),y=+$('#fy').value;$('#fr').innerHTML=p&&(!y||y>=p.years[0]&&y<=p.years[1])?`<p class="ok">Good news — we have a cluster for this car. <a href="#/p/${p.id}">See details →</a></p>`:`<p class="note">Not listed yet. <a href="#/request">Request your car</a> and we will let you know.</p>`}}}
+addEventListener('hashchange',route);route();
