@@ -4,7 +4,14 @@ window.SITE = {
   tagline: "Digital cluster swaps for JDM + Euro chassis. Fitted in Los Angeles.",
   email: "hello@example.com",          // TODO: Cheung's contact email
   formEndpoint: "",                    // FormSubmit/Formspree URL; empty = mailto fallback
-  stripeCheckoutUrl: "",               // TODO: Stripe Payment Link
+  stripeCheckoutUrl: "",               // TODO: Stripe Payment Link (deposit)
+  stripeMode: "test",                  // TEST MODE ONLY until pricing is final
+  stripePublishableKey: "",            // pk_test_... (publishable only; NEVER sk_/rk_ here)
+  paymentLinks: {                      // Stripe TEST Payment Links per product/option; empty = "coming soon"
+    gt86: { standard: "", premium: "" },   // $899 / $1049
+    ek:   { standard: "", premium: "" },   // $799 / $999
+    "987":{ standard: "", premium: "" }    // $1299 / $1549
+  },
   depositUSD: 200,                     // PLACEHOLDER refundable deposit
   leadTime: "3–5 weeks (estimate)",
   gallery: {"gt86": ["gt86-223835832", "gt86-223835833", "gt86-223835834", "gt86-224046690", "gt86-224046691", "gt86-224046692", "brz-224046741", "brz-224046742", "brz-224046743"], "ek": ["ek3-224729425", "ek3-224729426", "ek3-224729428", "ek3-224729429", "ek3-224729430", "ek3-224729431", "ek3-224785198", "ek3-224785199", "ek3-224785200", "ek3-224785201", "ek3-224785202", "ek3-224785203"], "987": ["987-223565096", "987-223565097", "987-223565098", "987-223565099", "987-223565100", "987-224046840", "987-224046842", "987-224046844", "981-223824245", "981-223824272", "981-223824273", "981-223824274", "981-223824275", "981-223824276", "981-224046831", "981-224046832", "981-224046833", "718-224046792"], "991": ["991-223632459", "991-223632460", "991-223632461", "991-223632462", "991-223632463", "991-223632466", "991-224046775", "991-224046776", "991-224046777", "991-224046778"], "pc": ["panamera-cayenne-223599723", "panamera-cayenne-223599724", "panamera-cayenne-223599725", "panamera-cayenne-223599726", "panamera-cayenne-223599727", "panamera-cayenne-223599728", "panamera-cayenne-223599729", "panamera-cayenne-223599730", "panamera-cayenne-223599732", "panamera-cayenne-223599733", "panamera-cayenne-223599734", "panamera-cayenne-223601049", "panamera-cayenne-223601051"]},
