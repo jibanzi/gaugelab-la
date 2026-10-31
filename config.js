@@ -12,7 +12,7 @@ window.SITE = {
     ek:   { standard: "", premium: "" },   // $799 / $999
     "987":{ standard: "", premium: "" },   // $1299 / $1549
     gr86tl: { standard: "" },               // $649
-    p987sw: { standard: "", premium: "" },  // $1499 / $999 (premium below cost - pending decision)
+    p987sw: { standard: "", premium: "" },  // $1499 / $2099
     c9ymc: { standard: "" },                // $339
     p718mc: { standard: "" },               // $299
     p718dl: { standard: "" }                // $799
@@ -47,7 +47,7 @@ window.SITE = {
       fit:"2nd-gen GR86 (ZN8) and BRZ (ZD8), 2022–2025. Not for 1st-gen 86/BRZ/FR-S. Pair (left + right).",
       specs:["Full LED tail lamp assembly, sold as a left/right pair","Sequential turn signal and animated start-up sequence","RGB running light with app-selectable colors","Plugs into the factory connectors — no splicing","Check local lighting laws before road use; colored running lights may be show/off-road only in some states"],
       makes:["Toyota","Subaru"] },
-    { id:"p987sw", acc:true, deposit:1014, code:"987 / 997", name:"Cayman / Boxster Carbon Steering Wheel", make:"Porsche",
+    { id:"p987sw", acc:true, deposit:1014, depositV:{standard:1014,premium:1400}, priceV:{standard:1499,premium:2099}, code:"987 / 997", name:"Cayman / Boxster Carbon Steering Wheel", make:"Porsche",
       years:[2005,2012], price:1499, plug:"Reuses your factory airbag & buttons", gal:"p987sw", hero:"p987sw-1",
       fit:"987 Cayman / Boxster and 997 911 three-spoke wheels (2005–2012). Your original airbag and controls transfer over; we recommend professional install.",
       specs:["Real carbon fiber upper and lower sections","Perforated leather or Alcantara grips, flat-bottom shape","Choice of center-stripe and stitching color","Built to order on your original wheel's mounting","Standard (leather) or Premium (Alcantara + custom stitch)"],
