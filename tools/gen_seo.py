@@ -42,11 +42,12 @@ def gen_faq(p=None):
     q += [
         ("Are these items in stock?", "No. All items are custom / made to order (or sourced to order) for your car after fitment is confirmed."),
         ("How long does it take?", f"Current estimate: {LEAD} after you approve the order. Some large items (e.g. the 718 rear diffuser) are estimated at 4–6 weeks. We will update you if this changes."),
-        ("Do you ship outside the US?", f"No. We ship only to street addresses in the 50 US states and Washington, D.C. We do not ship to PO Boxes, APO/FPO/DPO, Puerto Rico or other US territories, or outside the US. Prices include shipping to the US. See {BASE}/shipping-policy/"),
+        ("Do you ship outside the US?", f"No. We ship only to street addresses in the 50 US states and Washington, D.C. We do not ship to PO Boxes, APO/FPO/DPO, Puerto Rico or other US territories, or outside the US. US shipping is calculated at checkout based on your ZIP and package size; free local pickup at our Los Angeles warehouse. See {BASE}/shipping-policy/"),
+        ("How much is shipping?", "US shipping is calculated at checkout based on your ZIP and package size; free local pickup at our Los Angeles warehouse. The shipping amount is shown as its own line before you pay (dadan carrier quote from Los Angeles to your ZIP). Deposit orders pay shipping with the balance; pay-in-full orders pay it at checkout. In-stock items that ship directly from our supplier include shipping in the price."),
         ("Is the deposit refundable? How do I cancel?", "Deposit & cancellation policy: " + POL),
     ]
     if p and p.get("direct"):  # in-stock AE item: pay in full, no deposit
-        q = q[:-4] + [("Is it in stock?", "Yes. This is an in-stock item from our supplier: you pay the full price at checkout (no deposit) and it ships directly to your US address, est. 2–3 weeks."),
+        q = q[:-5] + [("Is it in stock?", "Yes. This is an in-stock item from our supplier: you pay the full price at checkout (no deposit) and it ships directly to your US address, est. 2–3 weeks."),
                       ("Do you ship outside the US?", f"No. We ship only to street addresses in the 50 US states and Washington, D.C. We do not ship to PO Boxes, APO/FPO/DPO, Puerto Rico or other US territories, or outside the US. Prices include shipping to the US. See {BASE}/shipping-policy/"),
                       ("Can I cancel? What is the refund policy?", POLD)]
     if (p and p.get("payFull") and p.get("allowPayFull")) or (not p and any(x.get("payFull") and x.get("allowPayFull") for x in cfg["products"])):
@@ -102,7 +103,7 @@ for p in HERO + ACC:
     summary = f"{p['name']} for {p['make']} {p['code']} ({yrs}). {p['plug']}. Made to order; {LEAD}. {price_txt}."
     if p.get("direct"): summary = f"{p['name']} for {p['make']} {p['code']} ({yrs}). {p['plug']}. In stock; pay in full at checkout (no deposit); ships direct from our supplier, est. 2–3 weeks. {price_txt}."
     title = f"{p['name']} ({p['code']}, {yrs}) | Tachi Club" if p.get("acc") else f"{p['name']} – Digital LCD Gauge Cluster Swap ({p['code']}, {yrs}) | Tachi Club"
-    desc = (f"{p['name']} for {p['make']} {p['code']} {yrs}. {p['plug']}. {price_txt}. Made to order, ships in the US from Los Angeles.")[:300]
+    desc = (f"{p['name']} for {p['make']} {p['code']} {yrs}. {p['plug']}. {price_txt}. " + ("In stock; ships directly from our supplier to US addresses, shipping included." if p.get("direct") else "Made to order, ships in the US from Los Angeles; shipping calculated at checkout, free LA pickup."))[:300]
     if p.get("seoTitle"): title = f"{p['seoTitle']} | Tachi Club"
     if p.get("seoDesc"): desc = p["seoDesc"][:300]
     q = gen_faq(p)
@@ -123,7 +124,7 @@ for p in HERO + ACC:
 <div><nav aria-label="Breadcrumb"><a href="/">Home</a> › {E(p['name'])}</nav><h1>{E(p['name'])}</h1>
 <p class="lead"><b>Summary:</b> {E(summary)}</p>
 <h2>Fitment</h2><p>{E(p['fit'])}</p><p>Chassis: {E(p['code'])} · Years: {yrs} · Make: {E(p['make'])}</p>
-<h2>Price</h2><p>{E(price_txt)}</p>
+<h2>Price</h2><p>{E(price_txt)}</p>{"" if p.get("direct") else "<p class=\"note shipnote\"><b>Shipping:</b> US shipping is calculated at checkout based on your ZIP and package size; free local pickup at our Los Angeles warehouse.</p>"}
 <h2>Specs</h2><ul>{''.join(f'<li>{E(s)}</li>' for s in p['specs'])}</ul>
 {'' if p.get('direct') else '<h2>Deposit &amp; cancellation policy</h2><p class="note">' + E(POL) + '</p>'}{('<h2>' + ('Refund policy (in-stock item)' if p.get('direct') else 'Pay-in-full refund policy') + '</h2><p class="note">' + E(POLD if p.get('direct') else POLF) + '</p>') if (p.get('payFull') and p.get('allowPayFull')) or p.get('direct') else ''}{xl(p)}
 <p><a class="btn" href="/#/p/{pid}">{"Buy now – pay in full" if p.get("direct") else "Order / pre-order this item"}</a></p>
@@ -146,7 +147,7 @@ POLICIES = {
  "shipping-policy": ("Shipping Policy", "Tachi Club ships only to street addresses in the 50 US states and Washington, D.C. Shipping times, tracking, lost packages and address rules.", [
   ("Where do you ship?", "We ship only to street addresses in the 50 US states and Washington, D.C. (including Alaska and Hawaii)."),
   ("Where don't you ship?", "We do not ship to PO Boxes, APO/FPO/DPO military or diplomatic addresses, Puerto Rico or other US territories, or any address outside the United States. Orders with these addresses are refused at checkout."),
-  ("How much is shipping?", "Prices include shipping to the US. There is no separate shipping charge at checkout."),
+  ("How much is shipping?", "US shipping is calculated at checkout based on your ZIP and package size; free local pickup at our Los Angeles warehouse. Items that ship from our Los Angeles warehouse (digital clusters and made-to-order parts): enter your ZIP on the order form and we show the shipping amount as its own line before you pay; it is based on the actual packed size and weight and a live carrier rate from Los Angeles. Deposit orders pay shipping together with the balance; pay-in-full orders pay it at checkout. Choose \"Local pickup at our LA warehouse\" for $0 shipping; pickup details are emailed after you order. In-stock items that ship directly from our supplier (marked \"In stock · pay in full\") include US shipping in the price."),
   ("When will my order ship? (in-stock items)", "In-stock accessories (marked \"In stock · pay in full\") ship directly from our supplier, usually within 2–5 business days after your order. Transit is usually about 7–15 business days."),
   ("When will my order ship? (custom items)", "Custom / made-to-order items ship after production, per the lead time shown on each product page: digital clusters are estimated at 3–5 weeks, and other custom parts at about 2–6 weeks (large items such as the 718 rear diffuser 4–6 weeks). We email you if the estimate changes."),
   ("Tracking and delivery confirmation", "When your order ships we email you the carrier and tracking number. When the carrier shows it delivered, we email you a delivery confirmation."),
@@ -166,7 +167,7 @@ POLICIES = {
  "terms": ("Terms of Service", "Terms of sale for orders placed on Tachi Club (tachiclub.oliandcece.com), operated by Oli&CeCe Inc.", [
   ("Who we are", "Tachi Club is operated by Oli&CeCe Inc., Commerce, California, USA. Contact: " + SUP + "."),
   ("US customers only", "We sell and ship only to customers with street addresses in the 50 US states and Washington, D.C. See the Shipping Policy."),
-  ("Orders and payment", "Prices are in USD and include shipping to the US. Custom items are ordered with a deposit (balance due before shipping); in-stock items are paid in full at checkout. Payments are processed by Stripe. Your order is accepted when we send the order confirmation email."),
+  ("Orders and payment", "Prices are in USD. For items that ship from our Los Angeles warehouse, US shipping is calculated at checkout from your ZIP and package size and shown as a separate line before you pay (free local pickup in LA); in-stock items shipped directly by our supplier include shipping. Custom items are ordered with a deposit (balance due before shipping); in-stock items are paid in full at checkout. Payments are processed by Stripe. Your order is accepted when we send the order confirmation email."),
   ("Policies you agree to", "By checking the box on the order form you agree to these Terms, the Returns & Refund Policy and the Shipping Policy that apply to your payment option. The exact policy text shown to you, with the time of acceptance, is kept with your order and repeated in your confirmation email."),
   ("Fitment", "Fitment information is provided per our suppliers. Tell us your car, year and trim; for custom items we confirm fitment from your VIN/photos before ordering. Installation is your responsibility; professional installation is recommended where noted."),
   ("Mileage", "Digital clusters are programmed to match your vehicle's original odometer reading. We never alter mileage."),
@@ -220,7 +221,7 @@ open("llms.txt", "w", encoding="utf-8").write(f"""# Tachi Club
 
 ## Pages
 - [FAQ]({BASE}/faq/)
-- [Shipping Policy]({BASE}/shipping-policy/): US only — 50 states + DC; no PO Boxes, APO/FPO/DPO, PR/territories; prices include US shipping; in-stock items ship in 2–5 business days + ~7–15 transit.
+- [Shipping Policy]({BASE}/shipping-policy/): US only — 50 states + DC; no PO Boxes, APO/FPO/DPO, PR/territories; LA-warehouse items: US shipping calculated at checkout by ZIP + package size, free local pickup in Los Angeles; direct-ship in-stock items include shipping; in-stock items ship in 2–5 business days + ~7–15 transit.
 - [Returns & Refund Policy]({BASE}/returns-refund-policy/)
 - [Terms of Service]({BASE}/terms/)
 - [Sitemap]({BASE}/sitemap.xml)

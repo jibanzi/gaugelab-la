@@ -24,7 +24,7 @@
 
 ## Pages
 - [FAQ](https://tachiclub.oliandcece.com/faq/)
-- [Shipping Policy](https://tachiclub.oliandcece.com/shipping-policy/): US only — 50 states + DC; no PO Boxes, APO/FPO/DPO, PR/territories; prices include US shipping; in-stock items ship in 2–5 business days + ~7–15 transit.
+- [Shipping Policy](https://tachiclub.oliandcece.com/shipping-policy/): US only — 50 states + DC; no PO Boxes, APO/FPO/DPO, PR/territories; LA-warehouse items: US shipping calculated at checkout by ZIP + package size, free local pickup in Los Angeles; direct-ship in-stock items include shipping; in-stock items ship in 2–5 business days + ~7–15 transit.
 - [Returns & Refund Policy](https://tachiclub.oliandcece.com/returns-refund-policy/)
 - [Terms of Service](https://tachiclub.oliandcece.com/terms/)
 - [Sitemap](https://tachiclub.oliandcece.com/sitemap.xml)
