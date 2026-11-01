@@ -126,3 +126,17 @@ label.chk a{text-decoration:underline}
 @media(max-width:899px){body.has-mbar .tgchat{font-size:0!important;width:44px;height:44px;min-height:44px;padding:0!important;border-radius:50%;clip-path:none;display:flex!important;align-items:center;justify-content:center;right:10px!important;box-shadow:2px 2px 0 var(--hot)}body.has-mbar .tgchat:before{content:"💬";font-size:20px}}
 .pr b .depv{font:inherit;color:inherit}
 .shipsum:empty{display:none}
+
+/* ===== Checkout page (2026-11-01) ===== */
+.ckw{max-width:640px;margin:0 auto;padding-top:20px}.ckh{font-size:clamp(40px,8vw,64px);margin:.2em 0 .3em}
+.cks{background:var(--card);border:1px solid var(--line);padding:6px 16px 16px;margin:0 0 14px}.cks h3{font-size:24px;margin:12px 0 4px}
+.ckp{display:flex;gap:12px;align-items:center;padding:12px 0 4px}.ckp img{width:96px;height:72px;object-fit:cover;border:1px solid var(--line);flex:0 0 auto}.ckp b{font-size:17px}
+.mut{color:var(--mut)}.sm{font-size:13px;margin:8px 0}
+.shipsum{margin:14px 0 0;padding:4px 14px 8px}.pr.muted b{color:var(--mut);font-weight:400;font-size:14px}.pr.tot{border-bottom:0}.pr.tot span{color:var(--tx)}.pr.tot b{color:var(--acc);font-size:22px}
+.dtog{display:grid;gap:8px;margin:10px 0}.dtog .opt{display:flex;gap:10px;align-items:flex-start;margin:0;padding:12px;border:1px solid #333;text-transform:none;letter-spacing:0;font:15px/1.4 'Space Grotesk',sans-serif;color:var(--tx);cursor:pointer}.dtog .opt input{width:20px;height:20px;min-height:0;margin:1px 0 0;flex:0 0 auto;accent-color:var(--acc)}.dtog .opt:has(input:checked){border-color:var(--acc);background:#c6ff000d}
+.row2{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
+.inv{border-color:var(--hot)!important}.err{border-left-color:var(--hot);color:var(--tx)}
+.paybig{font-size:16px!important;margin-top:4px}.paybig:disabled{opacity:.6}
+.lock{text-align:center;font-size:12px;color:var(--mut);margin:10px 0 0}
+.ckb{margin-top:10px}
+@media(max-width:899px){body .tgchat{font-size:0!important;width:44px;height:44px;min-height:44px;padding:0!important;border-radius:50%;clip-path:none;display:flex!important;align-items:center;justify-content:center;right:10px!important;box-shadow:2px 2px 0 var(--hot)}body .tgchat:before{content:"💬";font-size:20px}}
