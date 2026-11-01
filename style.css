@@ -205,3 +205,13 @@ footer{border-top:1px solid var(--line);font:12px/1.7 var(--b);color:var(--mut)}
 }
 .wm{filter:saturate(.45) brightness(.95)}
 .shipsum .pr.muted b{white-space:normal;text-align:right}
+/* nav + chat fix (2026-11-01 v2) */
+.mbar .mchat{display:none}
+@media(max-width:899px){
+ nav{display:grid!important;grid-template-columns:repeat(3,1fr);overflow:visible!important;gap:0!important;width:100%;border-top:1px solid var(--line);margin-top:4px}
+ nav a{justify-content:center;min-height:36px!important;padding:0 2px!important;font-size:12px!important;letter-spacing:.3px!important}
+ body.has-mbar .tgchat{display:none!important}
+ .mbar .mchat{display:flex;align-items:center;justify-content:center;flex:0 0 44px;height:44px;border:1px solid var(--line);border-radius:var(--r);background:var(--card2);text-decoration:none;font-size:20px}
+ body .tgchat{width:36px!important;height:36px!important;min-height:36px!important;right:4px!important;bottom:12px!important}body .tgchat:before{font-size:16px!important}
+}
+@media(max-width:899px){nav .lang{position:absolute;top:14px;right:14px;width:auto}nav .lang button{min-height:30px!important;padding:0 8px!important}}
