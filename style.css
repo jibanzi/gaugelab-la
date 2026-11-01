@@ -90,3 +90,39 @@ label.chk input{min-width:22px;min-height:22px;margin-top:2px;accent-color:var(-
 html,body{overflow-x:clip}
 @media(max-width:899px){.logo{min-height:44px;display:inline-flex;align-items:center}label.chk{min-height:44px;align-items:center}}
 @media(max-width:899px){.gal img{width:44%;min-width:44%;flex:0 0 44%;aspect-ratio:1}.main-media{aspect-ratio:16/10}}
+
+/* ===== Product landing page (2026-11-01) ===== */
+.ptitle{font-size:clamp(38px,7vw,80px);margin:.15em 0 .1em}
+.pfits{margin:0;font:700 14px var(--m);color:var(--tx)}.pkey{margin:6px 0 0;color:var(--acc);font-weight:700}
+.back{font:700 13px var(--m)}
+.pbox{border:2px solid var(--acc);background:#c6ff000a;margin:16px 0 14px;padding:4px 16px 12px}
+.pr{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.pr span{font:700 12px var(--m);text-transform:uppercase;letter-spacing:1px;color:var(--mut);flex:0 0 auto}
+.pr b{text-align:right;font:700 16px var(--m);color:var(--tx)}.pr b.hl{color:var(--acc);font-size:20px}
+.shipline{margin:10px 0 0;font-size:14px;color:var(--mut);background:none;border:0;padding:0}.shipline b{color:var(--tx)}
+.btn.bigcta{width:100%;text-align:center;font-size:15px}
+.trust{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:6px;grid-template-columns:1fr 1fr;font-size:13px;color:var(--mut)}
+.trust li{border:1px solid var(--line);padding:8px 10px 8px 28px;position:relative;background:var(--card)}.trust li:before{content:"✓";position:absolute;left:10px;top:8px;color:var(--acc);font-weight:700}
+.sh{margin-top:30px;font-size:26px}
+.pol{border-left:3px solid var(--hot);background:#ff2e880d;padding:12px 14px;margin:16px 0;font-size:14px}.pol.polf{border-left-color:#ffb347;background:#ffb3470d}
+.polt{display:block;font:700 13px var(--m);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.polb{margin:0 0 4px;padding-left:18px}.polb li{margin:4px 0}
+.pol details.polx,.qa{border:0;padding:6px 0 0}.pol details.polx summary{font:700 13px var(--m);color:var(--acc);font-size:13px;min-height:36px}
+.pol details.polx p{color:var(--mut);margin:8px 0 0;line-height:1.6}
+.qa{border-bottom:1px solid var(--line)!important;padding:10px 0!important}.qa summary{font-size:16px}.qa p{color:var(--mut);margin:8px 0 0}
+label.chk{display:block!important;position:relative;padding-left:34px;line-height:1.5;min-height:0!important}
+label.chk input{position:absolute;left:0;top:1px;margin:0;width:22px!important;height:22px;min-height:22px!important;min-width:22px}
+label.chk a{text-decoration:underline}
+@media(max-width:899px){
+ .btn{display:inline-block!important;text-align:center;line-height:24px}
+ .pm .main-media{aspect-ratio:16/10}
+ .gal img{width:30%!important;min-width:30%!important;flex:0 0 30%!important}
+ nav{flex-wrap:wrap!important;overflow:visible!important;mask-image:none!important;justify-content:space-between}
+ nav a,nav .lang button{min-height:36px!important;padding:0 6px!important;font-size:11px}
+ .tgchat{padding:8px 12px!important;font-size:11px!important;right:8px!important}
+ main{padding-bottom:110px}
+}
+@media(max-width:420px){.trust{grid-template-columns:1fr}}
+@media(max-width:899px){body.has-mbar .tgchat{font-size:0!important;width:44px;height:44px;min-height:44px;padding:0!important;border-radius:50%;clip-path:none;display:flex!important;align-items:center;justify-content:center;right:10px!important;box-shadow:2px 2px 0 var(--hot)}body.has-mbar .tgchat:before{content:"💬";font-size:20px}}
+.pr b .depv{font:inherit;color:inherit}
+.shipsum:empty{display:none}
