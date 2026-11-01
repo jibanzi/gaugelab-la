@@ -9,7 +9,7 @@ window.SITE = {
   stripePublishableKey: "pk_live_51H9kpZAcpVACF0U1IBf0EN1mN4V32JSgKmfYiuiotM1NjmphZA0HynM7mR1fA9JwL3lk4C4Oba8t6skNQ2uncq9k00l1Cdb9la",            // pk_live_ (publishable only; NEVER sk_/rk_ here)
   paymentLinks: {                      // option keys only; links intentionally empty — all payments go through orderApi Checkout (deposit/shipping/policy logic)
     gt86: { standard: "", premium: "" },   // $899 / $1049
-    ek:   { standard: "", premium: "" },   // $799 / $999
+    ek:   { standard: "" },                   // $899 single version (t331u)
     "987":{ standard: "", premium: "" },   // $1299 / $1549
     gr86tl: { standard: "" },               // $649
     p987sw: { standard: "", premium: "" },  // $1499 / $2099
@@ -32,8 +32,8 @@ window.SITE = {
       fit:"Currently for push-button-start trims with dual-zone climate control. Send photos so we can confirm your car.",
       specs:["12.3-inch LCD, 2970×720 resolution (manufacturer spec)","3000:1 contrast, up to 1000 nits peak brightness","~178° viewing angles, warm color tone for night driving","Temperature-tested from −30°C to 75°C by the manufacturer","No need to open the factory cluster board — typical install around 30 min per manufacturer"],
       makes:["Toyota","Subaru","Scion"] },
-    { id:"ek", payFull:true, allowPayFull:false /* t285u: pay-in-full hidden until cost is final; set true to re-enable */, priceV:{standard:799,premium:999}, code:"EK9 / EK4 / EK3", name:"Civic EK Digital Cluster", make:"Honda",
-      years:[1996,2000], price:799, plug:"Plug-and-play into factory harness", gal:"ek", hero:"ek3-224729429",
+    { id:"ek", payFull:true, allowPayFull:false /* t285u: pay-in-full hidden until cost is final; set true to re-enable */, code:"EK9 / EK4 / EK3", name:"Civic EK Digital Cluster", make:"Honda",
+      years:[1996,2000], price:899, plug:"Plug-and-play into factory harness", gal:"ek", hero:"ek3-224729429",
       video:"ek3-honda-ek3-instrument-cluster",
       fit:"1996–2000 Honda Civic EK3, EK4, EK9, EJ6, EJ8, EJ9. We confirm by VIN and cluster photos before build.",
       specs:["Plug and play — drops into the factory cluster slot","12.3-inch Japan JDI LCD, 1920×720 resolution (manufacturer spec)","6 switchable UI themes","Selectable tach redline: 8,000 / 9,000 / 10,000 / 11,000 rpm","Selectable max speedometer scale: 180 / 220 / 240","Configurable RPM shift light","Configurable service interval reminder","13 selectable startup logos","Aftermarket ECUs, cams or sensors may need a matching calibration/signal module — tell us your build"],
