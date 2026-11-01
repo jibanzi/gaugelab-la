@@ -66,7 +66,7 @@ def page(path, title, desc, image, body, ld):
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="{'product' if '/p/' in path else 'website'}"><meta property="og:site_name" content="Tachi Club"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{image}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{E(title)}"><meta name="twitter:description" content="{E(desc)}"><meta name="twitter:image" content="{image}">
-<meta name="theme-color" content="#090909"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0E0F11"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script type="application/ld+json">{json.dumps({"@context": "https://schema.org", "@graph": ld}, ensure_ascii=False)}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
