@@ -141,3 +141,67 @@ label.chk a{text-decoration:underline}
 .ckb{margin-top:10px}
 @media(max-width:899px){body .tgchat{font-size:0!important;width:44px;height:44px;min-height:44px;padding:0!important;border-radius:50%;clip-path:none;display:flex!important;align-items:center;justify-content:center;right:10px!important;box-shadow:2px 2px 0 var(--hot)}body .tgchat:before{content:"💬";font-size:20px}}
 .shipsum .pr span{flex:1 1 auto;min-width:0}.shipsum .pr b{white-space:nowrap}
+
+/* ===== Brand v2 — 90s JDM heritage × OEM+ (2026-11-01). Tokens: see /workspace/tachi-brand/STYLE.md ===== */
+:root{--bg:#0e0f11;--card:#16181b;--card2:#1c1f23;--line:#2a2e33;--tx:#ecebe7;--mut:#9b9a94;--acc:#b9e45a;--glow:#b9e45a;--hot:#c8102e;--warm:#d9a441;
+ --d:'Barlow Condensed','Arial Narrow',sans-serif;--b:'Inter',system-ui,-apple-system,sans-serif;--m:'JetBrains Mono',ui-monospace,monospace;--r:6px;--s1:8px;--s2:16px;--s3:24px;--s4:40px}
+body{font:16px/1.6 var(--b);background:var(--bg);letter-spacing:0}
+.grain,.kanji,.cut,header:after,.mq{display:none!important}
+h1,h2,h3{font-family:var(--d);font-weight:700;text-transform:none;letter-spacing:.2px;line-height:1.02}
+h1{font-size:clamp(40px,7vw,76px)}h2{font-size:clamp(30px,4.5vw,48px)}h3{font-size:24px;font-weight:600}
+h2 .k{color:var(--tx)}.out{-webkit-text-stroke:0;color:var(--mut)}
+.lead{font-size:18px;color:var(--mut)}
+a{color:var(--tx);text-decoration:underline;text-decoration-color:#ffffff40;text-underline-offset:3px}a:hover{text-decoration-color:var(--glow)}
+header{background:#0e0f11f2;box-shadow:none;border-bottom:1px solid var(--line)}
+nav{font:600 12px var(--b);letter-spacing:.6px}nav a{text-decoration:none;color:var(--mut)}nav a:hover{color:var(--tx)}
+.lang{border:1px solid var(--line);border-radius:var(--r);overflow:hidden}.lang button{font:600 11px var(--b)}.lang button.on{background:var(--tx);color:var(--bg)}
+.btn{background:var(--glow);color:#0b0c0d;clip-path:none;border-radius:var(--r);font:700 14px var(--b);letter-spacing:.4px;text-transform:none;text-decoration:none;box-shadow:none;padding:14px 22px}
+.btn:hover{transform:none;box-shadow:0 0 0 3px #b9e45a33;filter:brightness(1.05)}
+.btn.ghost{background:transparent;color:var(--tx);outline:1px solid var(--line);outline-offset:-1px}
+.stk{transform:none!important;font:600 11px var(--b);letter-spacing:.6px;padding:4px 9px;border-radius:3px;background:var(--card2);color:var(--mut);outline:1px solid var(--line)}
+.stk.a,.stk.h,.stk.o{background:var(--card2);color:var(--tx);outline:1px solid var(--line)}
+.card{border-radius:var(--r);border-color:var(--line)}.card:before{display:none}.card:hover{border-color:#ffffff30}.code{font:700 18px var(--d);background:#0e0f11d9;color:var(--tx);border-radius:3px}
+.box{border:1px solid var(--line);background:var(--card);border-radius:var(--r)}.box b{color:var(--tx)}
+.note{border-left:2px solid var(--line);background:var(--card)}.ok{border-left:2px solid var(--glow);background:var(--card)}
+.specs li:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--glow);top:19px;transform:none;box-shadow:0 0 6px #b9e45a80}
+.steps div{border-radius:var(--r)}.steps div:before{color:var(--mut);font-family:var(--d)}
+select,input,textarea{border-radius:var(--r)!important;border-color:var(--line);background:#111316}
+input:focus,select:focus,textarea:focus{outline:2px solid #b9e45a66;outline-offset:0;border-color:var(--glow)}
+label{font:600 12px var(--b);letter-spacing:.4px;text-transform:none;color:var(--mut)}
+label.chk{font:15px/1.5 var(--b)}
+footer{border-top:1px solid var(--line);font:12px/1.7 var(--b);color:var(--mut)}footer .stk{display:none}
+.tgchat{background:var(--card2);color:var(--tx);outline:1px solid var(--line);box-shadow:none!important}
+.mbar{border-top:1px solid var(--line)!important;background:#0e0f11f5!important}.mbar .btn{clip-path:none}
+.hero:after{background:linear-gradient(180deg,#0000 30%,#0e0f11 92%),linear-gradient(90deg,#0e0f11cc,#0000 70%)}
+/* product */
+.ptitle{font-size:clamp(36px,6vw,68px);margin:.15em 0 .05em}
+.pfits{font:500 14px var(--b);color:var(--mut)}.pkey{color:var(--tx);font-weight:500;font-size:15px}
+.pquick{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:12px 0 0}.pquick b{font:700 30px var(--d);color:var(--tx)}.pquick span{font:600 14px var(--b);color:var(--glow)}
+.pbox{border:1px solid var(--line);background:var(--card);border-radius:var(--r)}
+.pr span{font:500 13px var(--b);letter-spacing:0;text-transform:none}.pr b{font:600 16px var(--b)}.pr b.hl{color:var(--glow);font-size:20px}
+.tline{margin:12px 0 0;font:500 13px/1.5 var(--b);color:var(--tx);text-align:center;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
+.trust li{border-radius:var(--r);border-color:var(--line)}.trust li:before{color:var(--glow)}
+.fake{margin:10px 0 0;padding:10px 12px;border-left:2px solid var(--warm);background:#d9a4410f;font-size:13px;border-radius:0 var(--r) var(--r) 0}
+.wait{margin:10px 0 0;font-size:14px}.wait a{color:var(--mut)}
+.sh{font-size:26px}
+.pol{border-left:2px solid var(--line);background:var(--card);border-radius:0 var(--r) var(--r) 0}.pol.polf{border-left-color:var(--warm);background:var(--card)}
+.polt{font:600 13px var(--b);letter-spacing:.3px;text-transform:none}
+.pol details.polx summary{font:600 13px var(--b);color:var(--tx);text-decoration:underline;text-decoration-color:#ffffff40}
+.qa summary{font:600 16px var(--b)}
+.back{font:500 14px var(--b);color:var(--mut);text-decoration:none}
+/* checkout */
+.cks{border-radius:var(--r);background:var(--card)}.cks h3{font-size:22px}
+.shipsum{border:1px solid var(--line)!important;background:var(--card2)!important}.pr.tot b{color:var(--glow)}
+.dtog .opt{border-color:var(--line);border-radius:var(--r);font:15px/1.4 var(--b)}.dtog .opt:has(input:checked){border-color:var(--glow);background:#b9e45a0d}
+.inv{border-color:#e5484d!important}.err{border-left-color:#e5484d}
+@media(max-width:899px){
+ header{padding-top:6px}
+ nav{flex-wrap:nowrap!important;overflow-x:auto!important;justify-content:flex-start;gap:2px}
+ nav a,nav .lang button{min-height:34px!important;font-size:12px}
+ .pm .main-media{aspect-ratio:16/9}
+ .gal img{width:24%!important;min-width:24%!important;flex:0 0 24%!important}
+ .btn{border-radius:var(--r)}
+ body .tgchat:before{content:"💬"}
+}
+.wm{filter:saturate(.45) brightness(.95)}
+.shipsum .pr.muted b{white-space:normal;text-align:right}
