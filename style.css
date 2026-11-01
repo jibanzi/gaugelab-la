@@ -140,3 +140,4 @@ label.chk a{text-decoration:underline}
 .lock{text-align:center;font-size:12px;color:var(--mut);margin:10px 0 0}
 .ckb{margin-top:10px}
 @media(max-width:899px){body .tgchat{font-size:0!important;width:44px;height:44px;min-height:44px;padding:0!important;border-radius:50%;clip-path:none;display:flex!important;align-items:center;justify-content:center;right:10px!important;box-shadow:2px 2px 0 var(--hot)}body .tgchat:before{content:"💬";font-size:20px}}
+.shipsum .pr span{flex:1 1 auto;min-width:0}.shipsum .pr b{white-space:nowrap}

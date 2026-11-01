@@ -70,7 +70,7 @@ def page(path, title, desc, image, body, ld):
 <script type="application/ld+json">{json.dumps({"@context": "https://schema.org", "@graph": ld}, ensure_ascii=False)}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css?v=20261101c"><script src="/config.js?v=20261101c"></script><script src="https://js.stripe.com/v3" async></script>
+<link rel="stylesheet" href="/style.css?v=20261101d"><script src="/config.js?v=20261101d"></script><script src="https://js.stripe.com/v3" async></script>
 </head>
 <body><div class="grain"></div><header><a href="/" class="logo" id="logo" aria-label="Tachi Club home"></a><nav><a href="/#/models">Clusters</a><a href="/#/acc">Accessories</a><a href="/#/how">Process</a><a href="/faq/">FAQ</a><a href="/#/request">Request</a><a href="/#/about">About</a></nav></header>
 <div class="kanji" aria-hidden="true" style="display:none"></div><main id="app">{body}</main><footer id="foot"></footer>
@@ -134,7 +134,7 @@ for p in HERO + ACC:
     out = page(path, title, desc, img(p["hero"]), body, ld)
     # humans: jump into the interactive SPA product view (order form w/ required policy checkbox)
     # humans: same URL, but switch the SPA to this product (order form incl. required policy checkbox)
-    out = out.replace("<script>/* boot", "<script>if(!location.hash)history.replaceState(null,'',location.pathname+location.search+'#/p/%s');</script><script src=\"/app.js?v=20261101c\"></script><script>/* boot" % pid)
+    out = out.replace("<script>/* boot", "<script>if(!location.hash)history.replaceState(null,'',location.pathname+location.search+'#/p/%s');</script><script src=\"/app.js?v=20261101d\"></script><script>/* boot" % pid)
     open(f"p/{pid}/index.html", "w", encoding="utf-8").write(out)
     urls.append((path, "0.9"))
     llms_products.append(f"- [{p['name']}]({BASE + path}): {summary} Fitment: {p['fit']}")
@@ -190,7 +190,7 @@ for slug, (t, d, secs) in POLICIES.items():
         ld.append({"@type": "MerchantReturnPolicy", "@id": BASE + path + "#policy", "name": t, "url": BASE + path, "applicableCountry": "US", "returnPolicyCountry": "US",
                    "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted", "refundType": "https://schema.org/FullRefund", "returnFees": "https://schema.org/FreeReturn", "itemCondition": "https://schema.org/NewCondition", "description": "No returns or exchanges after shipment, except damaged, wrong or missing items reported with photos within 7 days of delivery (replacement first, else refund). Cancellation: custom items, full refund before the customer confirms production start, afterwards refund minus actual costs incurred (capped at the deposit); in-stock items, full refund any time before shipment. Refunds in 5-10 business days to the original payment method."})
     os.makedirs(slug, exist_ok=True)
-    out = page(path, f"{t} | Tachi Club", d, img("981-224046832"), body, ld).replace('<script>/* boot the interactive SPA view for humans; crawlers read the static content above */</script>', '<script src="/app.js?v=20261101c"></script>' if False else '')
+    out = page(path, f"{t} | Tachi Club", d, img("981-224046832"), body, ld).replace('<script>/* boot the interactive SPA view for humans; crawlers read the static content above */</script>', '<script src="/app.js?v=20261101d"></script>' if False else '')
     open(f"{slug}/index.html", "w", encoding="utf-8").write(out)
 
 # FAQ page
@@ -201,7 +201,7 @@ os.makedirs("faq", exist_ok=True)
 open("faq/index.html", "w", encoding="utf-8").write(
     page("/faq/", "FAQ – Fitment, Lead Time, Shipping & Deposit Policy | Tachi Club",
          "Answers on fitment, lead time, US shipping, and Tachi Club's deposit & cancellation policy for made-to-order car parts.",
-         img("981-224046832"), body, [ORG, SITE, crumbs([("Home", "/"), ("FAQ", "/faq/")]), faq_ld(q)]).replace("<script>/* boot", "<script>if(!location.hash)history.replaceState(null,'',location.pathname+location.search+'#/faq');</script><script src=\"/app.js?v=20261101c\"></script><script>/* boot"))
+         img("981-224046832"), body, [ORG, SITE, crumbs([("Home", "/"), ("FAQ", "/faq/")]), faq_ld(q)]).replace("<script>/* boot", "<script>if(!location.hash)history.replaceState(null,'',location.pathname+location.search+'#/faq');</script><script src=\"/app.js?v=20261101d\"></script><script>/* boot"))
 
 open("sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     "".join(f"  <url><loc>{BASE}{u}</loc><lastmod>{TODAY}</lastmod><priority>{pr}</priority></url>\n" for u, pr in urls) + "</urlset>\n")
